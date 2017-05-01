@@ -10,8 +10,9 @@ All code is written in MATLAB and requires:
 As dicussed in the article, the code is separeted in three main methods that performe different tasks: the search algorithm, the see-saw algorithm, and the outer polytope approximation.
 
 - Search algorithm:
- 
+
 - See-saw algorithm:
+  - [seesaw_wnr](https://github.com/jessicabavaresco/hello-world/blob/master/seesaw_wnr.m): see-saw method for calculation an upper bound on the critical visibility to white noise of a given quantum state subjected to N k-outcome general POVMs. Provides a candidate to the optimal set of measurements to steer the given quantum state in the specified scenario.
  
 - Outer polytope approximation<sup>§</sup>:
  
