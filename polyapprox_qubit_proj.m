@@ -12,7 +12,7 @@
 %
 %   last update: May, 2017
 
-function eta = polyapprox_qubit_proj(rho_AB,vec)
+function eta = polyapprox_qubit_proj(rho_AB,vert)
 %polyapprox_qubit_proj Calculates a lower bound to the critical visibility
 %   of the input two-qubit state rho_AB when subjected to N 2-outcome
 %   projective measurements by constructin an outer polytope que
@@ -37,7 +37,7 @@ function eta = polyapprox_qubit_proj(rho_AB,vec)
 % the function polytope_vertices will calculate the vertices of a polytope
 % that involves the Bloch sphere based on the input vectors. See polytope_vertices
 % for details
-vert     = polytope_vertices(vec);
+vert     = polytope_vertices(vert);
 num_ext = size(vert,1); % reads the number of extremal points
 
 dA   = 2; % Alice's system must be dimension 2
@@ -61,29 +61,29 @@ M_ax(:,:,1,2) = (1/2)*(eye(2)-vert(1,1)*XX-vert(1,2)*YY-vert(1,3)*ZZ);
 % statement.
 t = 1;
 for i=2:num_ext
-    M_ax(:,:,2,1) = (1/2)*(eye(2)+vec(i,1)*X+vec(i,2)*Y+vec(i,3)*Z);
-    M_ax(:,:,2,2) = (1/2)*(eye(2)-vec(i,1)*X-vec(i,2)*Y-vec(i,3)*Z);
+    M_ax(:,:,2,1) = (1/2)*(eye(2)+vert(i,1)*XX+vert(i,2)*YY+vert(i,3)*ZZ);
+    M_ax(:,:,2,2) = (1/2)*(eye(2)-vert(i,1)*XX-vert(i,2)*YY-vert(i,3)*ZZ);
     
     for j=2:num_ext
         if j~=i
-            M_ax(:,:,3,1) = (1/2)*(eye(2)+vec(j,1)*X+vec(j,2)*Y+vec(j,3)*Z);
-            M_ax(:,:,3,2) = (1/2)*(eye(2)-vec(j,1)*X-vec(j,2)*Y-vec(j,3)*Z);
+            M_ax(:,:,3,1) = (1/2)*(eye(2)+vert(j,1)*XX+vert(j,2)*YY+vert(j,3)*ZZ);
+            M_ax(:,:,3,2) = (1/2)*(eye(2)-vert(j,1)*XX-vert(j,2)*YY-vert(j,3)*ZZ);
         
             for k=2:num_ext
                 if k~=i && k~=j 
-                    M_ax(:,:,4,1) = (1/2)*(eye(2)+vec(k,1)*X+vec(k,2)*Y+vec(k,3)*Z);
-                    M_ax(:,:,4,2) = (1/2)*(eye(2)-vec(k,1)*X-vec(k,2)*Y-vec(k,3)*Z);
+                    M_ax(:,:,4,1) = (1/2)*(eye(2)+vert(k,1)*XX+vert(k,2)*YY+vert(k,3)*ZZ);
+                    M_ax(:,:,4,2) = (1/2)*(eye(2)-vert(k,1)*XX-vert(k,2)*YY-vert(k,3)*ZZ);
             
                     for l=2:num_ext
                         if l~=i && l~=j && l~=k
-                            M_ax(:,:,5,1) = (1/2)*(eye(2)+vec(l,1)*X+vec(l,2)*Y+vec(l,3)*Z);
-                            M_ax(:,:,5,2) = (1/2)*(eye(2)-vec(l,1)*X-vec(l,2)*Y-vec(l,3)*Z);
+                            M_ax(:,:,5,1) = (1/2)*(eye(2)+vert(l,1)*XX+vert(l,2)*YY+vert(l,3)*ZZ);
+                            M_ax(:,:,5,2) = (1/2)*(eye(2)-vert(l,1)*XX-vert(l,2)*YY-vert(l,3)*ZZ);
                             
                             % SDP wnr_eta will calculate the critical
                             % visibility of the state rho_AB subjected to
                             % each set of quasi-POVMs that was constructed
                             % and store the values on the vector eta_list
-                            eta_list(t,1) = wnr_eta(rho_AB, M_ax);
+                            eta_list(t,1) = wnr_eta(rho_AB, M_ax)
                             t = t + 1;
                         end
                     end
