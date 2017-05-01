@@ -12,7 +12,7 @@
 %
 %   last update: May, 2017
 
-function [eta, opt_M] = search_qubit_tetra(rho_AB, N)
+function [opt_M, eta] = search_qubit_tetra(rho_AB, N)
 %search_qubit_tetra Calculates a lower bound for the critical visibility
 %   eta of a two-qubit quantum state rho_AB subjected to N 4-outcome tetrahedron
 %   measurements using a search algorithm and finds a candidate to the
