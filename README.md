@@ -1,7 +1,7 @@
-### Code to accompany *[Most incompatible measurements for robust steering tests](https://arxiv.org/abs/1704.02994)*
+## Code to accompany *[Most incompatible measurements for robust steering tests](https://arxiv.org/abs/1704.02994)*
 #### Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha
 
-This is a repository for all code which was written for the article *Most incompatible measurements for robust steering tests*. Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha. [arXiv:1704.02994[quant-ph]](https://arxiv.org/abs/1704.02994).
+This is a repository for all code which was written for the article "*Most incompatible measurements for robust steering tests*. Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha. [arXiv:1704.02994 [quant-ph]](https://arxiv.org/abs/1704.02994)."
 
 All code is written in MATLAB and requires:
 - [Yalmip](https://yalmip.github.io) - a MATLAB-based convex modeling framework
@@ -12,15 +12,15 @@ As dicussed in the article, the code is separeted in three main methods that per
 - Search algorithm: 
 The search algorithm is employed in optimizations over sets of measurements that are restricted in the number of measurements, number of outcomes of each measurement, and also possibly in the structure of the POVMs. The code made available here is specifically for the case of qubit measurements.
 
-  - [search_qubit_planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_planproj.m):
+  - [search_qubit_planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_planproj.m): calculates upper bounds for the critical visibility of two-qubit quantum states subjected to N planar projective measurements and provides a candidate for the optimal set of measurements.
   
-  - [search_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_proj.m):
+  - [search_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_proj.m): calculates upper bounds for the critical visibility of two-qubit quantum states subjected to N projective measurements and provides a candidate for the optimal set of measurements.
   
-  - [search_qubit_trine](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_trine.m):
+  - [search_qubit_trine](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_trine.m): calculates upper bounds for the critical visibility of two-qubit quantum states subjected to N regular trine measurements and provides a candidate for the optimal set of measurements.
   
-  - [search_qubit_tetra](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_tetra.m):
+  - [search_qubit_tetra](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_tetra.m): calculates upper bounds for the critical visibility of two-qubit quantum states subjected to N regular tetrahedron measurements and provides a candidate for the optimal set of measurements.
   
-  - [search_qubit_genpovm](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_genpovm.m):
+  - [search_qubit_genpovm](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_genpovm.m): calculates upper bounds for the critical visibility of two-qubit quantum states subjected to general N k-outcome measurements and provides a candidate for the optimal set of measurements.
   
 - See-saw algorithm:
 The see-saw algorithm optimizes over sets of general POVMs that are restricted only in the number of measurements and in the number of outcomes for each measurement. The code made available here can be used for states of any dimension.
@@ -32,9 +32,9 @@ The see-saw algorithm optimizes over sets of general POVMs that are restricted o
 - Outer polytope approximation<sup>§</sup>:
 The outer polytope approximation method estimates the amount of white noise that must me applied to a quantum state in order to guarantee that it is unsteerable under the specified scenario. The code made available here is specifically for the case of qubit projective measurements.
 
-  - [polyapprox_qubit_planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_planproj.m):
+  - [polyapprox_qubit_planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_planproj.m): calculates lower bounds for the critical visibility of two-qubit quantum states subjected to N=5 (can be simply modified to any other number) planar projective measurements and provides LHS models for the assemblages in the set.
   
-  - [polyapprox_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_proj.m):
+  - [polyapprox_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_proj.m): calculates lower bounds for the critical visibility of two-qubit quantum states subjected to N=5 (can be simply modified to any other number) projective measurements and provides LHS models for the assemblages in the set.
  
 <sup>§</sup>: The outer polytope approximation code also requires:
 - [CDDMEX](http://control.ee.ethz.ch/~cohysys/cdd.php) - A MATLAB interface for the CDD solver.
