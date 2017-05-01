@@ -38,4 +38,4 @@ The outer polytope approximation method estimates the amount of white noise that
   - [polyapprox_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_proj.m): calculates lower bounds for the critical visibility of two-qubit quantum states subjected to N=5 (can be simply modified to any other number) projective measurements and provides LHS models for the assemblages in the set.
  
 <sup>§</sup>: The outer polytope approximation code also requires:
-- [CDDMEX](http://control.ee.ethz.ch/~cohysys/cdd.php) - A MATLAB interface for the CDD solver.
+- [CDDMEX](http://control.ee.ethz.ch/~cohysys/cdd.php) - a free MATLAB interface for the CDD solver, a software package of efficient algorithms for polytope manipulation
