@@ -7,7 +7,7 @@ All code is written in MATLAB and requires:
 - [Yalmip](https://yalmip.github.io) - a MATLAB-based convex modeling framework
 - [QETLAB](http://www.qetlab.com/) - A MATLAB Toolbox for Quantum Entanglement
 
-As dicussed in the article, the code is separeted in three main methods that perform different tasks: the search algorithm, the see-saw algorithm, and the outer polytope approximation.
+The code is separeted in three main methods that perform different tasks: the search algorithm, the see-saw algorithm, and the outer polytope approximation.
 
 - Search algorithm: 
 The search algorithm is employed in optimizations over sets of measurements that are restricted in the number of measurements, number of outcomes of each measurement, and also possibly in the structure of the POVMs. The code made available here is specifically for the case of qubit measurements.
