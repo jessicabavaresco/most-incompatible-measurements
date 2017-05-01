@@ -12,7 +12,7 @@
 %
 %   last update: May, 2017
 
-function [eta, opt_M] = search_qubit_trine(rho_AB, N)
+function [opt_M, eta] = search_qubit_trine(rho_AB, N)
 %search_qubit_trine Calculates a lower bound for the critical visibility
 %   eta of a two-qubit quantum state rho_AB subjected to N 3-outcome trine
 %   measurements using a search algorithm and finds a candidate to the
