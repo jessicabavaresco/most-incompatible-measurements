@@ -1,20 +1,40 @@
 ### Code to accompany *[Most incompatible measurements for robust steering tests](https://arxiv.org/abs/1704.02994)*
 #### Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha
 
-This is a repository for all code which was used and described in the article "*[Most incompatible measurements for robust steering tests](https://arxiv.org/abs/1704.02994)*".
+This is a repository for all code which was written for the article *Most incompatible measurements for robust steering tests*. Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha. [arXiv:1704.02994[quant-ph]](https://arxiv.org/abs/1704.02994).
 
 All code is written in MATLAB and requires:
 - [Yalmip](https://yalmip.github.io) - a MATLAB-based convex modeling framework
 - [QETLAB](http://www.qetlab.com/) - A MATLAB Toolbox for Quantum Entanglement
 
-As dicussed in the article, the code is separeted in three main methods that performe different tasks: the search algorithm, the see-saw algorithm, and the outer polytope approximation.
+As dicussed in the article, the code is separeted in three main methods that perform different tasks: the search algorithm, the see-saw algorithm, and the outer polytope approximation.
 
-- Search algorithm:
+- Search algorithm: 
+The search algorithm is employed in optimizations over sets of measurements that are restricted in the number of measurements, number of outcomes of each measurement, and also possibly in the structure of the POVMs. The code made available here is specifically for the case of qubit measurements.
 
+  - [search_qubit_planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_planproj.m):
+  
+  - [search_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_proj.m):
+  
+  - [search_qubit_trine](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_trine.m):
+  
+  - [search_qubit_tetra](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_tetra.m):
+  
+  - [search_qubit_genpovm](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/search_qubit_genpovm.m):
+  
 - See-saw algorithm:
-  - [seesaw_wnr](https://github.com/jessicabavaresco/hello-world/blob/master/seesaw_wnr.m): see-saw method for calculation an upper bound on the critical visibility to white noise of a given quantum state subjected to N k-outcome general POVMs. Provides a candidate to the optimal set of measurements to steer the given quantum state in the specified scenario.
+The see-saw algorithm optimizes over sets of general POVMs that are restricted only in the number of measurements and in the number of outcomes for each measurement. The code made available here can be used for states of any dimension.
+
+  - [seesaw_wnr](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/seesaw_wnr.m): see-saw method for calculating an upper bound on the critical visibility to white noise of a given quantum state subjected to N k-outcome general POVMs. Provides a candidate to the optimal set of measurements to steer the given quantum state in the specified scenario.
+  
+  - [seesaw_gr](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/seesaw_gr.m): see-saw method for calculating a lower bound on generalized robustness of steering of a given quantum state subjected to N k-outcome general POVMs. Provides a candidate to the optimal set of measurements to steer the given quantum state in the specified scenario.
  
 - Outer polytope approximation<sup>§</sup>:
+The outer polytope approximation method estimates the amount of white noise that must me applied to a quantum state in order to guarantee that it is unsteerable under the specified scenario. The code made available here is specifically for the case of qubit projective measurements.
+
+  - [polyapprox_qubit_planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_planproj.m):
+  
+  - [polyapprox_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_proj.m):
  
 <sup>§</sup>: The outer polytope approximation code also requires:
 - [CDDMEX](http://control.ee.ethz.ch/~cohysys/cdd.php) - A MATLAB interface for the CDD solver.
