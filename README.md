@@ -4,8 +4,9 @@
 This is a repository for all code which was written for the article "*Most incompatible measurements for robust steering tests*. Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha. [arXiv:1704.02994 [quant-ph]](https://arxiv.org/abs/1704.02994)."
 
 All code is written in MATLAB and requires:
-- [Yalmip](https://yalmip.github.io) - a MATLAB-based convex modeling framework
-- [QETLAB](http://www.qetlab.com/) - A MATLAB Toolbox for Quantum Entanglement
+- [Yalmip](https://yalmip.github.io) - a free MATLAB toolbox for rapid prototyping of optimization problems
+- [MOSEK](https://www.mosek.com) - a software package for solving mathematical optimization problems (under the free personal academic license)
+- [QETLAB](http://www.qetlab.com/) - a free MATLAB toolbox for quantum entanglement theory
 
 The code is separeted in three main methods that perform different tasks: the search algorithm, the see-saw algorithm, and the outer polytope approximation.
 
