@@ -1,5 +1,5 @@
-# Code to accompany *[Most incompatible measurements for robust steering tests](https://arxiv.org/abs/1704.02994)*
-# Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha
+### Code to accompany *[Most incompatible measurements for robust steering tests](https://arxiv.org/abs/1704.02994)*
+### Jessica Bavaresco, Marco Túlio Quintino, Leonardo Guerini, Thiago O. Maciel, Daniel Cavalcanti, and Marcelo Terra Cunha
 
 This is a repository for all code which was used and described in the article "*[Most incompatible measurements for robust steering tests](https://arxiv.org/abs/1704.02994)*".
 
