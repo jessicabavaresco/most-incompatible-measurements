@@ -8,15 +8,16 @@
 %   authors:     Jessica Bavaresco, Marco Tulio Quintino, Leonardo Guerini,
 %                Thiago O. Maciel, Daniel Cavalcanti, Marcelo Terra Cunha
 %
-%   requires:    Yalmip (https://yalmip.github.io) and QETLAB (http://www.qetlab.com)
+%   requires:    Yalmip (https://yalmip.github.io), QETLAB (http://www.qetlab.com), 
+%                and CDDMEX (http://control.ee.ethz.ch/~cohysys/cdd.php)
 %
 %   last update: May, 2017
 
-function eta = polyapprox_qubit_planproj(rho_AB, num)
-%polyapprox_qubit_proj Calculates a lower bound to the critical visibility
+function eta = polyapprox_qubit_5planproj(rho_AB, num)
+%polyapprox_qubit_5planproj Calculates a lower bound for the critical visibility
 %   of the input two-qubit state rho_AB when subjected to N 2-outcome
-%   projective measurements by constructin an outer polytope que
-%   approximate the set of assemblages. This code is written for the
+%   projective measurements by constructing an outer polytope that
+%   approximates the set of assemblages. This code is written for the
 %   specific case of N=5 and will need editing to calculate lower bounds
 %   for different number of measurements. Details follow.
 %
@@ -24,27 +25,26 @@ function eta = polyapprox_qubit_planproj(rho_AB, num)
 %             num = number of extremal points in the polytope that
 %             approximates the XZ plane of the Bloch sphere.
 %             
-%
 %   OUTPUT:  eta = lower bound for the critical visibility
 %            optional: the code can be modified to output LHS models for
 %            the extremal points of the polytope that are already being
 %            calculated.
 
-% the function polytope_vertices_plan will calculate the vertices of a polytope
-% that involves the Bloch sphere based on the input vectors. See polytope_vertices
-% for details
 vert     = polytope_vertices_plan(num);
+% the function polytope_vertices_plan will calculate the vertices of a polytope
+% that contains the Bloch sphere based on the input vectors. See polytope_vertices
+% for details
 num_vert = size(vert,1); % reads the number of extremal points
 
-dA   = 2; % Alice's system must be dimension 2
-k    = 2; % Two-outcome qubit projective measurements
+dA   = 2; % Alice's system must have dimension 2
+k    = 2; % Two-outcome qubit planar projective measurements
 N    = 5; % Number of measurements is 5 but can be modified
 M_ax = zeros(dA,dA,N,k);
 
-XX = [0 1; 1 0];  % Pauli matrices
-ZZ = [1 0; 0 -1]; % Pauli matrices
+XX = [0 1; 1 0];  % Pauli matrix
+ZZ = [1 0; 0 -1]; % Pauli matrix
 
-% first measurements is fixed and constructed from the first extremal point
+% first measurement is fixed and constructed from the first extremal point
 % vert(1,:)
 M_ax(:,:,1,1) = (1/2)*(eye(2)+vert(1,1)*XX+vert(1,2)*ZZ);
 M_ax(:,:,1,2) = (1/2)*(eye(2)-vert(1,1)*XX-vert(1,2)*ZZ);
@@ -74,10 +74,10 @@ for i=2:num_vert
                             M_ax(:,:,5,1) = (1/2)*(eye(2)+vert(l,1)*XX+vert(l,2)*ZZ);
                             M_ax(:,:,5,2) = (1/2)*(eye(2)-vert(l,1)*XX-vert(l,2)*ZZ);
             
-                            % SDP wnr_eta will calculate the critical
+                            % SDP wnr_eta calculates the critical
                             % visibility of the state rho_AB subjected to
                             % each set of quasi-POVMs that was constructed
-                            % and store the values on the vector eta_list
+                            % and stores the values on the vector eta_list
                             eta_list(t,1) = wnr_eta(rho_AB, M_ax)
                             t = t + 1;
                         end
@@ -102,9 +102,9 @@ function vert = polytope_vertices_plan(N)
 %   of the Bloch sphere with N extremal points. The polytope is guaranteed
 %   to contain the XZ plane.
 %
-%   INPUT:  N number of extremal points in the polytope approximation  
-%   OUTPUT: vert = is a set of vectors that define the polytope that
-%           contains the XZ plane of the Bloch sphere
+%   INPUT:     N = number of extremal points in the polytope approximation  
+%   OUTPUT: vert = is a set of vectors that define extremal points of
+%           the polytope that contains the XZ plane of the Bloch sphere
 
 r   = zeros(N,2);
 phi = 0:2*pi/N:2*pi-2*pi/N;
@@ -151,10 +151,10 @@ end
 
 function eta = wnr_eta(rho_AB, M_ax)
 %wnr_ste Calculates the critical visibility eta of the quantum
-%   state rho_AB subjected to local measurements M
+%   state rho_AB subjected to local measurements M_ax
 %
 %   INPUT:   rho_AB = quantum state 
-%                 M = set of measurements
+%              M_ax = set of measurements
 %  
 %   OUTPUT:     eta = critical visibility
 
@@ -189,6 +189,7 @@ for i=1:N
             uns_ax = uns_ax + D(i,j,l)*sig_loc(:,:,l);
         end
         F = F + [uns_ax==eta*sig_ax+((1-eta)/dB)*trace(sig_ax)*eye(dB)];
+        % depolarization constraints
     end
 end
 
