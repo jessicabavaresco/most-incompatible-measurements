@@ -31,11 +31,11 @@ The see-saw algorithm optimizes over sets of general POVMs that are restricted o
   - [seesaw_gr](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/seesaw_gr.m): see-saw method for calculating a lower bound on generalized robustness of steering of a given quantum state subjected to N k-outcome general POVMs. Provides a candidate to the optimal set of measurements to steer the given quantum state in the specified scenario.
  
 - Outer polytope approximation<sup>§</sup>:
-The outer polytope approximation method estimates the amount of white noise that must me applied to a quantum state in order to guarantee that it is unsteerable under the specified scenario. The code made available here is specifically for the case of qubit projective measurements.
+The outer polytope approximation method estimates the amount of white noise that must me applied to a quantum state in order to guarantee that it is unsteerable under the specified scenario. The code made available here is specifically for the case of N=5 qubit projective measurements.
 
-  - [polyapprox_qubit_planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_planproj.m): calculates lower bounds for the critical visibility of two-qubit quantum states subjected to N=5 (can be simply modified to any other number) planar projective measurements and provides LHS models for the assemblages in the set.
+  - [polyapprox_qubit_5planproj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_planproj.m): calculates lower bounds for the critical visibility of two-qubit quantum states subjected to N=5 (can be simply modified to any other number) planar projective measurements and provides LHS models for the assemblages in the set.
   
-  - [polyapprox_qubit_proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_proj.m): calculates lower bounds for the critical visibility of two-qubit quantum states subjected to N=5 (can be simply modified to any other number) projective measurements and provides LHS models for the assemblages in the set.
+  - [polyapprox_qubit_5proj](https://github.com/jessicabavaresco/most-incompatible-measurements/blob/master/polyapprox_qubit_proj.m): calculates lower bounds for the critical visibility of two-qubit quantum states subjected to N=5 (can be simply modified to any other number) projective measurements and provides LHS models for the assemblages in the set.
  
 <sup>§</sup>: The outer polytope approximation code also requires:
 - [CDDMEX](http://control.ee.ethz.ch/~cohysys/cdd.php) - a free MATLAB interface for the CDD solver, a software package of efficient algorithms for polytope manipulation
