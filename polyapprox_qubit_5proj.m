@@ -8,15 +8,16 @@
 %   authors:     Jessica Bavaresco, Marco Tulio Quintino, Leonardo Guerini,
 %                Thiago O. Maciel, Daniel Cavalcanti, Marcelo Terra Cunha
 %
-%   requires:    Yalmip (https://yalmip.github.io) and QETLAB (http://www.qetlab.com)
+%   requires:    Yalmip (https://yalmip.github.io), QETLAB (http://www.qetlab.com), 
+%                and CDDMEX (http://control.ee.ethz.ch/~cohysys/cdd.php)
 %
 %   last update: May, 2017
 
-function eta = polyapprox_qubit_proj(rho_AB,vert)
-%polyapprox_qubit_proj Calculates a lower bound to the critical visibility
+function eta = polyapprox_qubit_5proj(rho_AB,vert)
+%polyapprox_qubit_5proj Calculates a lower bound for the critical visibility
 %   of the input two-qubit state rho_AB when subjected to N 2-outcome
-%   projective measurements by constructin an outer polytope que
-%   approximate the set of assemblages. This code is written for the
+%   projective measurements by constructing an outer polytope that
+%   approximates the set of assemblages. This code is written for the
 %   specific case of N=5 and will need editing to calculate lower bounds
 %   for different number of measurements. Details follow.
 %
@@ -28,28 +29,27 @@ function eta = polyapprox_qubit_proj(rho_AB,vert)
 %             of a polyhedron or that are somehow equally distributed in a
 %             sphere.
 %             
-%
 %   OUTPUT:  eta = lower bound for the critical visibility
 %            optional: the code can be modified to output LHS models for
-%            the extremal points of the polytope that are already being
-%            calculated.
+%            the extremal points of the polytope (they are already being
+%            calculated).
 
-% the function polytope_vertices will calculate the vertices of a polytope
-% that involves the Bloch sphere based on the input vectors. See polytope_vertices
-% for details
 vert     = polytope_vertices(vert);
+% the function polytope_vertices will calculate the vertices of a polytope
+% that contains the Bloch sphere based on the input vectors. See
+% polytope_vertices for details
 num_ext = size(vert,1); % reads the number of extremal points
 
-dA   = 2; % Alice's system must be dimension 2
+dA   = 2; % Alice's system must have dimension 2
 k    = 2; % Two-outcome qubit projective measurements
 N    = 5; % Number of measurements is 5 but can be modified
 M_ax = zeros(dA,dA,N,k);
 
-XX = [0 1; 1 0];    % Pauli matrices
-YY = [0 -1i; 1i 0]; % Pauli matrices
-ZZ = [1 0; 0 -1];   % Pauli matrices
+XX = [0 1; 1 0];    % Pauli matrix
+YY = [0 -1i; 1i 0]; % Pauli matrix
+ZZ = [1 0; 0 -1];   % Pauli matrix
 
-% first measurements is fixed and constructed from the first extremal point
+% first measurement is fixed and constructed from the first extremal point
 % vert(1,:)
 M_ax(:,:,1,1) = (1/2)*(eye(2)+vert(1,1)*XX+vert(1,2)*YY+vert(1,3)*ZZ);
 M_ax(:,:,1,2) = (1/2)*(eye(2)-vert(1,1)*XX-vert(1,2)*YY-vert(1,3)*ZZ);
@@ -79,10 +79,10 @@ for i=2:num_ext
                             M_ax(:,:,5,1) = (1/2)*(eye(2)+vert(l,1)*XX+vert(l,2)*YY+vert(l,3)*ZZ);
                             M_ax(:,:,5,2) = (1/2)*(eye(2)-vert(l,1)*XX-vert(l,2)*YY-vert(l,3)*ZZ);
                             
-                            % SDP wnr_eta will calculate the critical
+                            % SDP wnr_eta calculates the critical
                             % visibility of the state rho_AB subjected to
                             % each set of quasi-POVMs that was constructed
-                            % and store the values on the vector eta_list
+                            % and stores the values on the vector eta_list
                             eta_list(t,1) = wnr_eta(rho_AB, M_ax)
                             t = t + 1;
                         end
@@ -109,10 +109,10 @@ function vert = polytope_vertices(vec)
 %   by the intersection of these planes. The polytope is guaranteed to
 %   contain a sphere of radius 1/2.
 %
-%   INPUT:   vec = vec(i,:) is a real 3-vector, vec is a set of 3 vectors
-%           that define planes.  
-%   OUTPUT: vert = is a set of vectors that define the polytope that
-%           contains the Bloch sphere
+%   INPUT:   vec = vec(i,:) is a real 3-vector, vec is a set of 3-vectors
+%           that will define the facets of the polytope.  
+%   OUTPUT: vert = is a set of vectors that define the extremal points
+%           of the polytope that contains the Bloch sphere
 
 for i = 1:size(vec,1)
     vec(i,:) = (1/2)*vec(i,:)/norm(vec(i,:));
@@ -141,7 +141,7 @@ for i=2:num
 end
 
 % the polytope is guaranteed to be formed by pairs of antipodal vectors in
-% order to construct qubit 2-outcome projective measurements.
+% order to construct qubit 2-outcome projective measurements
 t = 1;
 for i=1:num
     if V(i,1)~=0||V(i,2)~=0||V(i,3)~=0
@@ -154,10 +154,10 @@ end
 
 function eta = wnr_eta(rho_AB, M_ax)
 %wnr_ste Calculates the critical visibility eta of the quantum
-%   state rho_AB subjected to local measurements M
+%   state rho_AB subjected to local measurements M_ax
 %
 %   INPUT:   rho_AB = quantum state 
-%                 M = set of measurements
+%              M_ax = set of measurements
 %  
 %   OUTPUT:     eta = critical visibility
 
@@ -192,13 +192,14 @@ for i=1:N
             uns_ax = uns_ax + D(i,j,l)*sig_loc(:,:,l);
         end
         F = F + [uns_ax==eta*sig_ax+((1-eta)/dB)*trace(sig_ax)*eye(dB)];
+        % depolarization constraints
     end
 end
 
 J = eta;
 
 % maximizes the visibility such that the assemblage generated by input state
-% state and measurements accepts a LHS model
+% state and measurements accepts an LHS model
 SOLUTION = solvesdp(F, -J, sdpsettings('solver','mosek','verbose',0));
 
 eta = double(J);
