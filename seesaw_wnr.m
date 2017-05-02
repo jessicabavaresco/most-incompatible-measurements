@@ -15,10 +15,16 @@
 function [opt_M, eta] = seesaw_wnr(rho_AB,d,N,k)
 %seesaw_wnr Calculates a lower bound for the critical visibility eta
 %   of a quantum state rho_AB subjected to N k-outcome
-%   measurements using a see-saw algorithm. This see-saw consists in the
+%   measurements using a see-saw algorithm. This see-saw consists of the
 %   iteration of two SDPs (WNR_sdp1 and WNR_sdp2). WNR_sdp1 optimizes over
 %   steering inequalitites for fixes state and measurements. WNR_sdp2
 %   optimizes over measurements for fixed state and steering inequality.
+%   The output of WNR_sdp1 will be the input of WNR_sdp2, and the output
+%   of WNR_sdp2 will be the input of WNR_sdp1 in the next round of the.
+%   iteration. The iteration is halted when the difference between the
+%   optimal value of the objective function in WNR_sdp1 in two subsequent
+%   rounds is less than the value of the variable precision (initially
+%   set to 10^(-4)). The precision can be ajusted by the user.
 %   The final set of measurements is a candidate for the optimal set of N
 %   k-outcome measurements to steer the state rho_AB. Next, SDP wnr_ste
 %   calculates the critical visibility eta of the input state
@@ -56,7 +62,8 @@ end
 % gap is the difference between the values of gr in two subsequent iterations
 gap = 1;
 
-% when gap is smaller than precision the see-saw is halted.  
+% when gap is smaller than precision the see-saw is halted. 
+% precision can be ajusted by the user according to necessity.
 precision = 10^(-4);
 
 count = 0;
